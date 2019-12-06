@@ -8,18 +8,39 @@ class ReactForm extends React.Component{
             lastName : '',
             lanOptions :'',
             isFriendly : true,
-            language : ""
+            language : "",
+            multiFruit:['mango']
 
         }
     }
 
     handleChange =(event) =>{
            const {name,value,type,checked} = event.target;
+           let options = event.target.options;
+    
+          // let multiSelectOption = [];
+          
 
-           type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
+var x = x || [];
+
+    
+                   
+
+           for(let i = 0; i < options.length; i++) {
+            if( options[i].selected ) {
+
+             
+              x.push(options[i].value);
+            }
+        }
+
+
+
+           type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: x })
 
       
-       console.log(event.target.value)
+   
+       console.log(multiSelectOption)
       
     }
 
@@ -99,7 +120,21 @@ class ReactForm extends React.Component{
             </select>
             </label>
 
+             <br/>
+             <label>
+               <select
+                multiple={true}
+                 name ="multiFruit" 
+                 value={this.state.multiFruit} 
+                 onChange={this.handleChange}>
+                   <option value="mango">Mango</option>
+                   <option value="jackfruit">jackfruit</option>
+                   <option value="pears">Pears</option>
+                   <option value ="strawberry">Strawberry</option>
+                </select>   
 
+              
+               </label>
 
                 </form>
                 {this.state.firstName} {this.state.lastName}
