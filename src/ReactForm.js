@@ -5,19 +5,22 @@ class ReactForm extends React.Component{
         super()
         this.state ={
             firstName : '',
-            lastName : ''
+            lastName : '',
+            lanOptions :'',
+            isFriendly : true,
+            language : ""
 
         }
     }
 
     handleChange =(event) =>{
-           const {name,value} = event.target;
+           const {name,value,type,checked} = event.target;
 
-        this.setState (
-            { [name] : value }
-           
-        )
+           type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
+
+      
        console.log(event.target.value)
+      
     }
 
     render(){
@@ -27,7 +30,7 @@ class ReactForm extends React.Component{
                     <input 
                     type="text" 
                     name ="firstName"
-              
+                    
                      placeholder="First Name" 
                      onChange ={this.handleChange}>
                     </input>
@@ -46,10 +49,10 @@ class ReactForm extends React.Component{
           <label>
             <input
               type="radio"
-              name="react-tips"
+              name="lanOptions"
               onChange = {this.handleChange}
-         
-           
+             checked ={this.state.lanOptions==="Option 1"}
+             value ="Option 1"
             />
             Option 1
          
@@ -59,9 +62,10 @@ class ReactForm extends React.Component{
           
             <input
               type="radio"
-              name="react-tips"
+              name="lanOptions"
               onChange = {this.handleChange}
-             
+              checked ={this.state.lanOptions==="Option 2"}
+              value ="Option 2"
             />
             Option 2
          
@@ -70,16 +74,36 @@ class ReactForm extends React.Component{
        
             <input
               type="radio"
-              name="react-tips"
+              name="lanOptions"
               onChange = {this.handleChange}
-              
+              checked ={this.state.lanOptions==="Option 3"}
+              value ="Option 3"
             />
             Option 3
           </label>
+          <label>
+            <input 
+              type ="checkbox"
+              name ="isFriendly"
+              checked = {this.state.isFriendly}
+              onChange = {this.handleChange}
+              />
+          </label>
         
+          <br />
+          <label>
+            <select name="language" value={this.state.language} onChange={this.handleChange}>
+              <option value="php">PHP</option>
+              <option value ="python">Python</option>
+              <option value ="javascript">Javascript</option>
+            </select>
+            </label>
+
+
 
                 </form>
                 {this.state.firstName} {this.state.lastName}
+                My Favorite Language : {this.state.language}
              </div>   
         )
     }
