@@ -8,7 +8,8 @@ class ReactForm extends React.Component{
             lastName : '',
             lanOptions :'',
             isFriendly : true,
-            language : ""
+            language : "",
+            chooseMultiFruit:['jackfruit','supari']
 
         }
     }
@@ -16,10 +17,23 @@ class ReactForm extends React.Component{
     handleChange =(event) =>{
            const {name,value,type,checked} = event.target;
 
-           type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
+          if( type === "checkbox" ){
+            this.setState({ [name]: checked })
+
+          } else if ( type === "select-multiple" ){
+            let value = Array.from(event.target.selectedOptions, option => option.value);
+
+            this.setState({[name] : value});
+
+
+          } else{
+            console.log("I am at last");
+            this.setState({ [name]: value })
+
+          } 
 
       
-       console.log(event.target.value)
+       console.log(event.target.type)
       
     }
 
@@ -99,8 +113,20 @@ class ReactForm extends React.Component{
             </select>
             </label>
 
-
-
+            <br/>
+            <label>
+            <select 
+               name ="chooseMultiFruit"
+               value = {this.state.chooseMultiFruit}
+               onChange ={this.handleChange}
+               multiple={true}
+               >
+              <option value="jackfruit">JackFruit</option>
+              <option value ="coconut">Coconut</option>
+              <option value ="pears">Pears</option>
+              <option value="supari">Supari</option>     
+            </select> 
+            </label>
                 </form>
                 {this.state.firstName} {this.state.lastName}
                 My Favorite Language : {this.state.language}
